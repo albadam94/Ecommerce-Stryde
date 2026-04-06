@@ -1,0 +1,117 @@
+[
+  {
+    "id": "1",
+    "slug": "aero-jacket-pro",
+    "name": "Aero Jacket Pro",
+    "category": "Chaquetas",
+    "gender": "men",
+    "price": 189,
+    "originalPrice": 240,
+    "badge": "new",
+    "rating": 4.9,
+    "reviewCount": 148,
+    "collection": "SS25",
+    "inStock": true,
+    "colors": [
+      { "name": "Stryde Black", "hex": "#0A0A0A" },
+      { "name": "Cold Blue",    "hex": "#1A1F3C" },
+      { "name": "Volt",         "hex": "#C8FF00" }
+    ],
+    "sizes": [
+      { "label": "XS", "available": false },
+      { "label": "S",  "available": true  },
+      { "label": "M",  "available": true,  "lowStock": true },
+      { "label": "L",  "available": true  },
+      { "label": "XL", "available": true  }
+    ],
+    "images": ["/images/products/aero-jacket-1.jpg"],
+    "description": "Diseñada para atletas de alto rendimiento. AeroWeave™ de 4 vías de elasticidad. Ideal para running, trail y entrenamientos de alta intensidad.",
+    "specs": {
+      "material": "88% Polyester reciclado, 12% Elastane",
+      "technology": "AeroWeave™",
+      "stretch": "4-Way Stretch",
+      "moistureWicking": "DryMove™",
+      "waterResistance": "DWR Coating",
+      "weight": "142g (talla M)",
+      "breathability": 95,
+      "elasticity": 90,
+      "durability": 85
+    }
+  },
+  {
+    "id": "2",
+    "slug": "volt-speed-tee",
+    "name": "Volt Speed Tee",
+    "category": "Camisetas",
+    "gender": "unisex",
+    "price": 71,
+    "originalPrice": 89,
+    "badge": "sale",
+    "rating": 4.2,
+    "reviewCount": 67,
+    "collection": "SS25",
+    "inStock": true,
+    "colors": [
+      { "name": "Volt",         "hex": "#C8FF00" },
+      { "name": "Stryde Black", "hex": "#0A0A0A" },
+      { "name": "Arctic White", "hex": "#F5F5F3" }
+    ],
+    "sizes": [
+      { "label": "S",   "available": true },
+      { "label": "M",   "available": true },
+      { "label": "L",   "available": true },
+      { "label": "XL",  "available": true },
+      { "label": "XXL", "available": true }
+    ],
+    "images": ["/images/products/volt-tee-1.jpg"],
+    "description": "Camiseta técnica ultraligera con tecnología DryMove™. Perfecta para entrenamientos de alta intensidad y carreras largas.",
+    "specs": {
+      "material": "92% Polyester, 8% Elastane",
+      "technology": "DryMove™",
+      "stretch": "2-Way Stretch",
+      "moistureWicking": "DryMove™",
+      "waterResistance": "Ninguna",
+      "weight": "98g (talla M)",
+      "breathability": 98,
+      "elasticity": 75,
+      "durability": 80
+    }
+  },
+  {
+    "id": "3",
+    "slug": "race-shorts-elite",
+    "name": "Race Shorts Elite",
+    "category": "Shorts",
+    "gender": "men",
+    "price": 98,
+    "badge": "new",
+    "rating": 4.4,
+    "reviewCount": 39,
+    "collection": "SS25",
+    "inStock": true,
+    "colors": [
+      { "name": "Terra",        "hex": "#8C4A2A" },
+      { "name": "Stryde Black", "hex": "#0A0A0A" },
+      { "name": "Cold Blue",    "hex": "#1A1F3C" }
+    ],
+    "sizes": [
+      { "label": "S",  "available": true },
+      { "label": "M",  "available": true },
+      { "label": "L",  "available": false },
+      { "label": "XL", "available": false }
+    ],
+    "images": ["/images/products/race-shorts-1.jpg"],
+    "description": "Shorts de competición con liner integrado y bolsillos laterales. Diseñados para velocidad máxima y comfort en carrera.",
+    "specs": {
+      "material": "86% Polyester, 14% Elastane",
+      "technology": "AeroWeave™ Lite",
+      "stretch": "4-Way Stretch",
+      "moistureWicking": "DryMove™",
+      "waterResistance": "Splash Resistant",
+      "weight": "112g (talla M)",
+      "breathability": 92,
+      "elasticity": 88,
+      "durability": 82
+    }
+  }
+]
