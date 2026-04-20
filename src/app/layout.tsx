@@ -21,25 +21,7 @@ export const metadata: Metadata = {
   description: "Premium technical apparel for serious athletes.",
 }
 
-import WebGLSlider from "@/components/ui/WebGLSlider"
 
-const HERO_SLIDES = [
-  {
-    image: "/images/hero/hero-1.png",
-    lines: ["BUILT", "FOR THE", "RELENTLESS"],
-    subtitle: "",
-  },
-  {
-    image: "/images/hero/hero-2.png",
-    lines: ["EVERY", "STRIDE", "PERFECTED"],
-    subtitle: "",
-  },
-  {
-    image: "/images/hero/hero-3.png",
-    lines: ["TRAIN IN", "SILENCE", "WIN LOUD"],
-    subtitle: "",
-  },
-]
 
 export default function RootLayout({
   children,
@@ -48,14 +30,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={`${syne.variable} ${dmSans.variable} bg-black`}>
+      <body className={`${syne.variable} ${dmSans.variable} bg-black text-white overflow-x-hidden`}>
         <Navbar />
         <Ticker />
-     
 
-        <main> 
+        <main className="pt-16">
           {children}
-             
         </main>
       </body>
     </html>

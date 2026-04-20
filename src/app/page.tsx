@@ -1,5 +1,7 @@
 import WebGLSlider from "@/components/ui/WebGLSlider"
 import CategoryGrid from "@/components/sections/CategoryGrid"
+import Trending from "@/components/sections/Trending"
+import MemberBanner from "@/components/sections/MemberBanner"
 
 const HERO_SLIDES = [
   {
@@ -22,8 +24,11 @@ const HERO_SLIDES = [
 export default function HomePage() {
   return (
     <div>
-      <WebGLSlider slides={HERO_SLIDES} autoPlay interval={5000} />
-         <CategoryGrid />
+      <WebGLSlider slides={HERO_SLIDES} autoPlay interval={5000}/>
+               <CategoryGrid  />
+                <Trending />
+                <MemberBanner />
+
     </div>
   )
 }

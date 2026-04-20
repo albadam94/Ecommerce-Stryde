@@ -14,7 +14,7 @@
 @theme {
   /* COLORES DE MARCA */
   --color-black: #0A0A0A;
-  --color-white: #F5F5F3;
+  --color-white: #FFFFFF;
   --color-off-white: #EFEFED;
 
   /* SUPERFICIES */
@@ -60,12 +60,6 @@ body {
   /* Usamos la variable definida en @theme */
   font-family: var(--font-dm-sans);
   -webkit-font-smoothing: antialiased;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
