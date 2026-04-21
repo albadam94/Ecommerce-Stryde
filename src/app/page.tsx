@@ -2,6 +2,7 @@ import WebGLSlider from "@/components/ui/WebGLSlider"
 import CategoryGrid from "@/components/sections/CategoryGrid"
 import Trending from "@/components/sections/Trending"
 import MemberBanner from "@/components/sections/MemberBanner"
+import PromoSlider from "@/components/sections/PromoSlider"
 
 const HERO_SLIDES = [
   {
@@ -28,6 +29,7 @@ export default function HomePage() {
                <CategoryGrid  />
                 <Trending />
                 <MemberBanner />
+                <PromoSlider />
 
     </div>
   )

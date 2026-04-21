@@ -13,8 +13,8 @@ export default function MemberBanner() {
   return (
     <section className="bg-black w-full relative overflow-hidden py-32">
       
-      {/* Wavy Line Decor */}
-      <div className="absolute left-6 top-0 h-full z-0 pointer-events-none">
+
+      <div className="absolute left-6 top-0 h-full z-10  pointer-events-none">
         <Image
           src="/images/Member/wavy-line.svg"
           alt=""
@@ -24,7 +24,7 @@ export default function MemberBanner() {
         />
       </div>
 
-      {/* Background Text */}
+      
       <div className="absolute bottom-0 left-0 right-0 z-0 pointer-events-none overflow-hidden">
         <p
           className="font-syne font-extrabold uppercase text-center whitespace-nowrap select-none"
@@ -42,7 +42,7 @@ export default function MemberBanner() {
       <div className="relative z-10 mx-auto px-20 w-full max-w-[1440px]">
         <div className="flex items-center justify-between gap-16">
 
-          {/* Left Content */}
+          
           <div className="flex flex-col gap-8 max-w-lg ml-10">
             <h2 className="font-syne font-extrabold text-[42px] uppercase leading-[1.05] tracking-[-1px] text-white text-balance">
               Train in Silence.<br />
@@ -67,7 +67,7 @@ export default function MemberBanner() {
             </div>
           </div>
 
-          {/* Right Content - Profile Composition */}
+        
           <div className="flex-1 relative flex justify-center">
             <div className="relative" style={{ width: "302px", height: "440px" }}>
               
@@ -85,8 +85,8 @@ export default function MemberBanner() {
                 style={{
                   width: "411px",
                   height: "265px",
-                  bottom: "-100px",    // Ajustado para que no "caiga" fuera de la sección
-                  right: "-250px",   // Solapamiento equilibrado
+                  bottom: "-100px",    
+                  right: "-250px", 
                   backgroundColor: "#2A3D00",
                   border: "0.5px solid rgba(200,255,0,0.2)",
                 }}
