@@ -25,7 +25,7 @@ export default function CategoryGrid() {
         className="absolute top-0 left-1/2 -translate-x-1/2 opacity-20 pointer-events-none"
       />
 
-      <div className="relative z-10 max-w-[1300px] mx-auto px-6 md:px-10">
+      <div className="relative z-10 max-w-325 mx-auto px-6 md:px-10">
 
         <div className="md:mb-16 ">
           <h2 className="font-display font-extrabold md:text-[48px] uppercase leading-[0.85] tracking-[-1px] text-white">
@@ -35,7 +35,7 @@ export default function CategoryGrid() {
 
        
         <div
-          className="grid gap-4 h-[650px] md:h-[750px]"
+          className="grid gap-4 h-162.5 md:h-187.5"
           style={{
             gridTemplateColumns: "1.4fr 1fr 1fr",
             gridTemplateRows: "1fr 1fr",
@@ -61,7 +61,21 @@ export default function CategoryGrid() {
   )
 }
 
-function CategoryCard({ category, className = "", isLarge = false }) {
+interface Category {
+  id: number
+  title: string
+  tag: string
+  image: string
+  href: string
+}
+
+interface CategoryCardProps {
+  category: Category
+  className?: string
+  isLarge?: boolean
+}
+
+function CategoryCard({ category, className = "", isLarge = false }: Readonly<CategoryCardProps>) {
   return (
     <Link
       href={category.href}
@@ -76,7 +90,7 @@ function CategoryCard({ category, className = "", isLarge = false }) {
         className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/20 to-transparent" />
 
       <div className={`absolute left-6 md:left-8 z-10 ${isLarge ? 'bottom-10' : 'bottom-6'}`}>
         <p className="text-volt text-[10px] font-medium uppercase tracking-[3px] mb-2">
@@ -87,7 +101,7 @@ function CategoryCard({ category, className = "", isLarge = false }) {
           {category.title}
         </h3>
 
-        <div className="mt-4 h-[2px] bg-volt transition-all duration-500 w-0 group-hover:w-14" />
+        <div className="mt-4 h-0.5 bg-volt transition-all duration-500 w-0 group-hover:w-14" />
       </div>
     </Link>
   )

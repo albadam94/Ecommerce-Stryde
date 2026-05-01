@@ -18,7 +18,7 @@ export default function Navbar() {
   const count = getCount()
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-[20px] border-b border-[#2A2A2A] bg-black/90 backdrop-blur-md">
+    <nav className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-5 border-b border-border bg-black/90 backdrop-blur-md">
 
       <Link href="/">
           <Image
@@ -37,7 +37,7 @@ export default function Navbar() {
     <li key={link.href}>
       <Link
         href={link.href}
-        className="font-syne font-bold text-[14px] leading-[20px] tracking-normal uppercase text-white-2 hover:text-volt transition-colors duration-200"
+        className="font-syne font-bold text-[14px] leading-5 tracking-normal uppercase text-white-2 hover:text-volt transition-colors duration-200"
       >
         {link.label}
       </Link>
@@ -90,7 +90,7 @@ export default function Navbar() {
   
         <Link
           href="/auth/register"
-          className="flex items-center justify-center w-[145px] h-[38px] rounded-[8px] bg-volt text-black font-dm-sans font-semibold text-[16px] leading-[18px] tracking-[0.02em] hover:bg-volt-dark transition-colors duration-200"
+          className="flex items-center justify-center w-36.25 h-9.5 rounded-lg bg-volt text-black font-dm-sans font-semibold text-[16px] leading-4.5 tracking-[0.02em] hover:bg-volt-dark transition-colors duration-200"
         >
           Create account
         </Link>

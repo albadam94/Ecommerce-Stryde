@@ -51,7 +51,7 @@ export default function TrendingSection() {
   return (
     <section className="bg-white w-full py-24">
 
-      <div className="max-w-[1440px] mx-auto px-20">
+      <div className="max-w-360 mx-auto px-20">
 
 
         <div className="flex items-end justify-between mb-12">
@@ -78,7 +78,7 @@ export default function TrendingSection() {
             <div key={product.id} className="group cursor-pointer">
 
            
-              <div className="relative aspect-[3/4] bg-[#E8E8E6] overflow-hidden">
+              <div className="relative aspect-3/4 bg-[#E8E8E6] overflow-hidden">
                 <Image
                   src={product.image}
                   alt={product.name}
@@ -90,7 +90,7 @@ export default function TrendingSection() {
               
                 {product.badge && (
                   <div className="absolute top-3 left-3 z-10">
-                    <span className={`px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[1px] rounded-[4px] ${
+                    <span className={`px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[1px] rounded-sm ${
                       product.badgeType === "volt"
                         ? "bg-volt text-black"
                         : "bg-black text-white"
@@ -108,11 +108,11 @@ export default function TrendingSection() {
                 </button>
 
                
-                <div className="absolute inset-0 bg-[#C8FF00]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-[2]" />
+                <div className="absolute inset-0 bg-volt/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-2" />
 
           
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-[5] translate-y-2 group-hover:translate-y-0">
-                  <button className="w-[193px] h-[44px] bg-volt flex items-center justify-center gap-2 font-body font-bold text-[12px] uppercase tracking-[1px] text-black shadow-xl hover:scale-105 transition-transform">
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-5 translate-y-2 group-hover:translate-y-0">
+                  <button className="w-48.25 h-11 bg-volt flex items-center justify-center gap-2 font-body font-bold text-[12px] uppercase tracking-[1px] text-black shadow-xl hover:scale-105 transition-transform">
                     Quick Add
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                       <path d="M2 2H3.5L4.5 10H11.5L13 5H4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -145,7 +145,7 @@ export default function TrendingSection() {
                 </div>
 
                 
-                <div className="flex gap-1.5 mt-1 flex-shrink-0">
+                <div className="flex gap-1.5 mt-1 shrink-0">
                   {product.colors.map((color, i) => (
                     <span
                       key={i}

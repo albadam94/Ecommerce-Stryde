@@ -39,11 +39,11 @@ export default function MemberBanner() {
         </p>
       </div>
 
-      <div className="relative z-10 mx-auto px-20 w-full max-w-[1440px]">
+      <div className="relative z-10 mx-auto px-20 w-full max-w-360">
         <div className="flex items-center justify-between gap-20">
 
       
-          <div className="relative flex-shrink-0" style={{ width: "302px", height: "440px" }}>
+          <div className="relative shrink-0" style={{ width: "302px", height: "440px" }}>
 
         
             <Image
@@ -55,7 +55,7 @@ export default function MemberBanner() {
             />
 
            
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black to-transparent z-10" />
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-black to-transparent z-10" />
 
             
             <div
@@ -108,7 +108,7 @@ export default function MemberBanner() {
               <span className="text-volt">Win Loud.</span>
             </h2>
 
-            <p className="text-white text-[15px] font-light leading-[1.85] max-w-[400px]">
+            <p className="text-white text-[15px] font-light leading-[1.85] max-w-100">
               Join the membership program to access exclusive discounts,
               early access to collections, and personalized training content.
             </p>
@@ -116,7 +116,7 @@ export default function MemberBanner() {
             <div>
               <Link
                 href="/auth/register"
-                className="inline-flex items-center justify-center gap-3 w-[193px] h-[44px] rounded-[8px] bg-volt text-black font-body font-semibold text-[15px] hover:bg-volt-dark transition-colors duration-200"
+                className="inline-flex items-center justify-center gap-3 w-48.25 h-11 rounded-lg bg-volt text-black font-body font-semibold text-[15px] hover:bg-volt-dark transition-colors duration-200"
               >
                 Join Free
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

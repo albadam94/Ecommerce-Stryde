@@ -31,7 +31,7 @@ export default function Ticker() {
             className="flex items-center gap-5 px-10 font-syne font-bold text-[10px] tracking-[3px] uppercase text-black"
           >
             {item}
-            <span className="w-1 h-1 rounded-full bg-black/30 flex-shrink-0" />
+            <span className="w-1 h-1 rounded-full bg-black/30 shrink-0" />
           </span>
         ))}
       </motion.div>
