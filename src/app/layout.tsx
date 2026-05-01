@@ -34,7 +34,6 @@ export default function RootLayout({
       <body className={`${syne.variable} ${dmSans.variable}`}>
         <Navbar />
         <Ticker />
-
         <main className="pt-16">
           {children}
         </main>

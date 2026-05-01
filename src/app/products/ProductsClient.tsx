@@ -33,28 +33,44 @@ export default function ProductsClient({ products }: Props) {
   const [checkedColls, setCheckedColls] = useState<string[]>(["Core collection"])
   const [stockOnly,    setStockOnly]    = useState(true)
   const [preSale,      setPreSale]      = useState(false)
+  const [priceMax,     setPriceMax]     = useState(450)
   const [sortBy,       setSortBy]       = useState("Relevance")
   const [viewMode,     setViewMode]     = useState<"grid4" | "grid2" | "list">("grid4")
 
   const filteredProducts = products.filter((p) => {
+    // Gender
     if (gender !== "All") {
       const g = gender.toLowerCase()
       if (p.gender !== g && p.gender !== "unisex") return false
     }
-    if (sportParam && p.category !== sportParam.toLowerCase()) return false
+    // Sport (from URL param)
+    if (sportParam && p.sport !== sportParam.toLowerCase()) return false
+    // Badge
     if (badgeParam && p.badge !== badgeParam) return false
-    if (checkedCats.length > 0 && !checkedCats.map(c => SUBCAT_MAP[c]).includes(p.category)) return false
+    // Subcategory checkboxes
+    if (checkedCats.length > 0 && !checkedCats.map(c => SUBCAT_MAP[c]).includes(p.subcategory)) return false
+    // Price
+    if (p.price > priceMax) return false
+    // Stock
     if (stockOnly && !p.inStock) return false
     return true
   })
 
   const toggleCat  = (c: string) => setCheckedCats(p  => p.includes(c) ? p.filter(x => x !== c) : [...p, c])
   const toggleColl = (c: string) => setCheckedColls(p => p.includes(c) ? p.filter(x => x !== c) : [...p, c])
-  const clearAll   = () => { setCheckedCats([]); setCheckedColls([]); setActiveColor(null); setActiveSize("") }
+  const clearAll   = () => {
+    setCheckedCats([])
+    setCheckedColls([])
+    setActiveColor(null)
+    setActiveSize("")
+    setPriceMax(450)
+    setStockOnly(false)
+    setPreSale(false)
+  }
 
   const sportLabel = sportParam
     ? sportParam.charAt(0).toUpperCase() + sportParam.slice(1)
-    : "Running"
+    : "Collection"
 
   const gridClass = {
     grid4: "grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
@@ -63,10 +79,10 @@ export default function ProductsClient({ products }: Props) {
   }[viewMode]
 
   return (
-    <div className="bg-black min-h-screen text-white">
+    <div className="bg-black min-h-screen text-white pt-12 mt-8">
 
       {/* BREADCRUMB */}
-      <div className="max-w-[1440px] mx-auto px-20 pt-8">
+      <div className="max-w-360 flex-10 px-20">
         <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[1.5px]">
           <Link href="/" className="text-white/40 hover:text-white transition-colors">Home</Link>
           {gender !== "All" && (
@@ -81,7 +97,7 @@ export default function ProductsClient({ products }: Props) {
       </div>
 
       {/* PAGE HEADER */}
-      <div className="max-w-[1440px] mx-auto px-20 pt-8 pb-6">
+      <div className="max-w-360 mx-auto px-20 pt-8 pb-6 mt-8">
         <div className="flex items-end justify-between">
           <h1 className="font-display font-extrabold text-[56px] uppercase leading-[0.9] tracking-[-2px]">
             {gender !== "All" && <>{gender}&apos;s <br /></>}
@@ -99,7 +115,7 @@ export default function ProductsClient({ products }: Props) {
       </div>
 
       {/* GENDER TABS */}
-      <div className="max-w-[1440px] mx-auto px-20">
+      <div className="max-w-360 mx-auto px-20">
         <div className="flex items-center gap-8 border-b border-white/10">
           {["Men", "Women", "Unisex", "All"].map((g) => (
             <button
@@ -121,25 +137,33 @@ export default function ProductsClient({ products }: Props) {
       <div className="max-w-[1440px] mx-auto px-20 py-8 flex gap-8 items-start">
 
         {/* SIDEBAR */}
-        <aside className="w-[220px] flex-shrink-0 flex flex-col gap-0">
+        <aside className="w-55 shrink-0 flex flex-col gap-0">
           <div className="flex items-center justify-between pb-4 border-b border-white/10">
             <span className="text-white font-medium text-[13px] uppercase tracking-[1px]">Filters</span>
-            <button onClick={clearAll} className="text-volt text-[11px] font-medium uppercase tracking-[1px] hover:opacity-70 transition-opacity">
+            <button
+              onClick={clearAll}
+              className="text-volt text-[11px] font-medium uppercase tracking-[1px] hover:opacity-70 transition-opacity"
+            >
               Clear all
             </button>
           </div>
 
           <FilterGroup title="Category">
             {CATEGORIES.map((cat) => (
-              <FilterCheckbox key={cat} label={cat} count={10}
-                checked={checkedCats.includes(cat)} onChange={() => toggleCat(cat)} />
+              <FilterCheckbox
+                key={cat} label={cat} count={10}
+                checked={checkedCats.includes(cat)}
+                onChange={() => toggleCat(cat)}
+              />
             ))}
           </FilterGroup>
 
           <FilterGroup title="Size">
             <div className="flex gap-2 flex-wrap">
               {SIZES.map((s) => (
-                <button key={s} onClick={() => setActiveSize(s)}
+                <button
+                  key={s}
+                  onClick={() => setActiveSize(s)}
                   className={`w-10 h-10 text-[12px] font-medium border transition-all ${
                     activeSize === s
                       ? "border-volt bg-volt/10 text-volt"
@@ -170,31 +194,47 @@ export default function ProductsClient({ products }: Props) {
           </FilterGroup>
 
           <FilterGroup title="Price">
-            <div className="relative pt-2 pb-4">
-              <div className="relative h-1 bg-white/10 rounded-full">
-                <div className="absolute h-full bg-volt rounded-full" style={{ left: "0%", right: "30%" }} />
-                <div
-                  className="absolute w-4 h-4 bg-white rounded-full top-1/2 -translate-y-1/2 cursor-pointer shadow-md"
-                  style={{ left: "calc(70% - 8px)" }}
-                />
-              </div>
-              <div className="flex justify-between mt-3 text-[11px] text-white/40 font-light">
-                <span>$0</span>
-                <span>$450</span>
+            <div className="pt-1 pb-2">
+              <input 
+                
+                type="range"
+                min={0}
+                max={450}
+                step={5}
+                value={priceMax}
+                onChange={(e) => setPriceMax(Number(e.target.value))}
+                className=" w-full cursor-pointer accent-volt/80"
+              />
+              <div className="flex justify-between mt-2 text-[11px] font-medium">
+                <span className="text-white/40">$0</span>
+                <span className="text-white/80 font-medium">${priceMax}</span>
               </div>
             </div>
           </FilterGroup>
 
           <FilterGroup title="Collection">
             {COLLECTIONS.map((col) => (
-              <FilterCheckbox key={col} label={col}
-                checked={checkedColls.includes(col)} onChange={() => toggleColl(col)} />
+              <FilterCheckbox
+                key={col} label={col}
+                checked={checkedColls.includes(col)}
+                onChange={() => toggleColl(col)}
+              />
             ))}
           </FilterGroup>
 
           <FilterGroup title="Availability">
-            <ToggleRow label="In stock only"    value={stockOnly} onChange={() => setStockOnly(p => !p)} />
-            <ToggleRow label="Include pre-sale" value={preSale}   onChange={() => setPreSale(p => !p)} />
+            <div className="flex flex-col gap-4">
+              <ToggleRow
+                label="In stock only"
+                value={stockOnly}
+                onChange={() => setStockOnly(p => !p)}
+              />
+              <ToggleRow
+                label="Include pre-sale"
+                value={preSale}
+                onChange={() => setPreSale(p => !p)}
+              />
+            </div>
           </FilterGroup>
         </aside>
 
@@ -204,14 +244,15 @@ export default function ProductsClient({ products }: Props) {
           {/* Toolbar */}
           <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
             <span className="text-white/40 text-[12px] font-light tracking-[0.5px]">
-              Showing {filteredProducts.length} of {products.length} products
+              Showing <span className="text-white">{filteredProducts.length}</span> of{" "}
+              <span className="text-white">{products.length}</span> products
             </span>
             <div className="flex items-center gap-4">
               <div className="relative">
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="appearance-none bg-transparent border border-white/20 text-white text-[12px] font-medium px-4 pr-8 h-9 cursor-pointer outline-none hover:border-white/40 transition-colors"
+                  className="appearance-none bg-black border border-white/20 text-white text-[12px] font-medium px-4 pr-8 h-9 cursor-pointer outline-none hover:border-white/40 transition-colors"
                 >
                   {["Relevance", "Newest", "Price: Low to High", "Price: High to Low", "Best Rated"].map(o => (
                     <option key={o} value={o} className="bg-black">{o}</option>
@@ -227,7 +268,9 @@ export default function ProductsClient({ products }: Props) {
                   { mode: "grid2", icon: "M1 1h3v10H1zM5 1h3v10H5zM9 1h2v10H9z" },
                   { mode: "list",  icon: "M1 3h10M1 6h10M1 9h10" },
                 ] as const).map(({ mode, icon }) => (
-                  <button key={mode} onClick={() => setViewMode(mode)}
+                  <button
+                    key={mode}
+                    onClick={() => setViewMode(mode)}
                     className={`w-9 h-9 flex items-center justify-center border transition-colors ${
                       viewMode === mode
                         ? "border-white/40 text-white"
@@ -245,19 +288,30 @@ export default function ProductsClient({ products }: Props) {
 
           {/* Grid / Empty state */}
           {filteredProducts.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-32 gap-4">
-              <p className="font-display font-bold text-[24px] uppercase text-white/20">
-                No products found
-              </p>
-              <button onClick={clearAll} className="text-volt text-[12px] uppercase tracking-[2px] hover:opacity-70">
+            <div className="flex flex-col items-center justify-center py-32 gap-6">
+              <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <path d="M4 7h20M9 7V5a2 2 0 012-2h6a2 2 0 012 2v2M12 12v7M16 12v7M5 7l1.5 16a2 2 0 002 1.8h11a2 2 0 002-1.8L23 7" stroke="#555" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="text-center">
+                <p className="font-display font-bold text-[20px] uppercase text-white/20 mb-2">
+                  No products found
+                </p>
+                <p className="text-white/30 text-[13px]">Try adjusting your filters</p>
+              </div>
+              <button
+                onClick={clearAll}
+                className="px-6 py-2.5 bg-volt text-black text-[11px] font-bold uppercase tracking-[2px] hover:opacity-90 transition-opacity"
+              >
                 Clear filters
               </button>
             </div>
           ) : (
-            <div className={`grid gap-4 ${gridClass}`}>
+            <div className={`grid gap-x-4 gap-y-8 ${gridClass}`}>
               {filteredProducts.map((product) => (
                 <Link key={product.id} href={`/products/${product.slug}`} className="group block">
-                  <div className="relative aspect-[3/4] bg-[#111] overflow-hidden mb-3">
+                  <div className="relative aspect-3/4 bg-black overflow-hidden">
                     <Image
                       src={product.images[0]}
                       alt={product.name}
@@ -267,7 +321,7 @@ export default function ProductsClient({ products }: Props) {
                     />
 
                     {product.badge && (
-                      <div className="absolute top-3 left-3 z-10">
+                      <div className="absolute top-3 left-3 ">
                         <span className={`px-2.5 py-1 text-[9px] font-bold uppercase tracking-[2px] ${
                           product.badge === "sale" ? "bg-volt text-black" : "bg-black text-white"
                         }`}>
@@ -286,7 +340,7 @@ export default function ProductsClient({ products }: Props) {
                     </button>
 
                     <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
-                      <div className="w-full h-11 bg-volt flex items-center justify-center font-body font-semibold text-[11px] uppercase tracking-[2px] text-black">
+                      <div className="w-full h-11 bg-volt flex items-center justify-center font-semibold text-[11px] uppercase tracking-[2px] text-black">
                         View product
                       </div>
                     </div>
@@ -305,8 +359,11 @@ export default function ProductsClient({ products }: Props) {
                     </div>
                     <div className="flex gap-1.5 mt-1 shrink-0">
                       {product.colors.map((color, i) => (
-                        <span key={i} className="w-3 h-3 rounded-full border border-white/10"
-                          style={{ backgroundColor: color.hex }} />
+                        <span
+                          key={i}
+                          className="w-3 h-3 rounded-full border border-white/20"
+                          style={{ backgroundColor: color.hex }}
+                        />
                       ))}
                     </div>
                   </div>
@@ -326,10 +383,15 @@ function FilterGroup({ title, children }: { title: string; children: React.React
   const [open, setOpen] = useState(true)
   return (
     <div className="py-5 border-b border-white/10">
-      <button onClick={() => setOpen(p => !p)} className="flex items-center justify-between w-full">
+      <button
+        onClick={() => setOpen(p => !p)}
+        className="flex items-center justify-between w-full mb-0"
+      >
         <span className="text-white font-medium text-[13px] uppercase tracking-[1px]">{title}</span>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}>
+        <svg
+          width="12" height="12" viewBox="0 0 12 12" fill="none"
+          style={{ transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+        >
           <path d="M2 4L6 8L10 4" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
         </svg>
       </button>
@@ -342,14 +404,23 @@ function FilterCheckbox({ label, count, checked, onChange }: {
   label: string; count?: number; checked: boolean; onChange: () => void
 }) {
   return (
-    <label className="flex items-center justify-between cursor-pointer group" onClick={onChange}>
+    <div
+      className="flex items-center justify-between cursor-pointer group"
+      onClick={onChange}
+    >
       <div className="flex items-center gap-3">
-        <div className={`w-4 h-4 border flex items-center justify-center shrink-0 transition-colors ${
-          checked ? "bg-volt border-volt" : "border-white/20 group-hover:border-white/50"
-        }`}>
+        <div
+          className="flex items-center justify-center shrink-0 transition-colors"
+          style={{
+            width: 16, height: 16,
+            border: checked ? "none" : "1.5px solid rgba(255,255,255,0.2)",
+            backgroundColor: checked ? "#C8FF00" : "transparent",
+            borderRadius: 3,
+          }}
+        >
           {checked && (
-            <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-              <path d="M1 4L3 6L7 2" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
+              <path d="M1 3.5L3 5.5L8 1" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           )}
         </div>
@@ -360,7 +431,7 @@ function FilterCheckbox({ label, count, checked, onChange }: {
         </span>
       </div>
       {count !== undefined && <span className="text-white/20 text-[11px]">{count}</span>}
-    </label>
+    </div>
   )
 }
 
@@ -368,16 +439,34 @@ function ToggleRow({ label, value, onChange }: {
   label: string; value: boolean; onChange: () => void
 }) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between gap-3">
       <span className="text-white/50 text-[12px] font-light">{label}</span>
       <button
         onClick={onChange}
-        className="relative w-9 h-5 rounded-full transition-colors duration-200 shrink-0"
-        style={{ backgroundColor: value ? "#C8FF00" : "rgba(255,255,255,0.1)" }}
+        aria-pressed={value}
+        style={{
+          position: "relative",
+          width: 38,
+          height: 22,
+          borderRadius: 11,
+          border: "none",
+          cursor: "pointer",
+          flexShrink: 0,
+          backgroundColor: value ? "#C8FF00" : "#2A2A2A",
+          transition: "background-color 0.2s",
+        }}
       >
         <span
-          className="absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200"
-          style={{ transform: value ? "translateX(18px)" : "translateX(2px)" }}
+          style={{
+            position: "absolute",
+            top: 3,
+            left: value ? 19 : 3,
+            width: 16,
+            height: 16,
+            borderRadius: "50%",
+            backgroundColor: value ? "#0A0A0A" : "#8C8C8C",
+            transition: "left 0.2s, background-color 0.2s",
+          }}
         />
       </button>
     </div>

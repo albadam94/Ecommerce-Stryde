@@ -8,6 +8,8 @@ export interface Product {
   slug: string
   name: string
   category: string
+  sport: "running" | "training" | "outdoor" | "lifestyle"
+  subcategory: "jackets" | "tshirts" | "shorts" | "leggings" | "accessories"
   gender: "men" | "women" | "unisex"
   price: number
   originalPrice?: number

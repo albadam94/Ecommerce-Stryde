@@ -3,14 +3,16 @@
     "id": "1",
     "slug": "aero-jacket-pro",
     "name": "Aero Jacket Pro",
-    "category": "Chaquetas",
+    "category": "Men's Running",
+    "sport": "running",
+    "subcategory": "jackets",
     "gender": "men",
     "price": 189,
     "originalPrice": 240,
     "badge": "new",
     "rating": 4.9,
     "reviewCount": 148,
-    "collection": "SS25",
+    "collection": "Core collection",
     "inStock": true,
     "colors": [
       { "name": "Stryde Black", "hex": "#0A0A0A" },
@@ -20,12 +22,12 @@
     "sizes": [
       { "label": "XS", "available": false },
       { "label": "S",  "available": true  },
-      { "label": "M",  "available": true,  "lowStock": true },
+      { "label": "M",  "available": true, "lowStock": true },
       { "label": "L",  "available": true  },
       { "label": "XL", "available": true  }
     ],
-    "images": ["/images/products/aero-jacket-1.jpg"],
-    "description": "Diseñada para atletas de alto rendimiento. AeroWeave™ de 4 vías de elasticidad. Ideal para running, trail y entrenamientos de alta intensidad.",
+    "images": ["/images/products/BJacket.png"],
+    "description": "Diseñada para atletas de alto rendimiento. AeroWeave™ de 4 vías de elasticidad.",
     "specs": {
       "material": "88% Polyester reciclado, 12% Elastane",
       "technology": "AeroWeave™",
@@ -42,7 +44,9 @@
     "id": "2",
     "slug": "volt-speed-tee",
     "name": "Volt Speed Tee",
-    "category": "Camisetas",
+    "category": "Running",
+    "sport": "running",
+    "subcategory": "tshirts",
     "gender": "unisex",
     "price": 71,
     "originalPrice": 89,
@@ -57,14 +61,13 @@
       { "name": "Arctic White", "hex": "#F5F5F3" }
     ],
     "sizes": [
-      { "label": "S",   "available": true },
-      { "label": "M",   "available": true },
-      { "label": "L",   "available": true },
-      { "label": "XL",  "available": true },
-      { "label": "XXL", "available": true }
+      { "label": "S",  "available": true },
+      { "label": "M",  "available": true },
+      { "label": "L",  "available": true },
+      { "label": "XL", "available": true }
     ],
-    "images": ["/images/products/volt-tee-1.jpg"],
-    "description": "Camiseta técnica ultraligera con tecnología DryMove™. Perfecta para entrenamientos de alta intensidad y carreras largas.",
+    "images": ["/images/products/Tshirt.png"],
+    "description": "Camiseta técnica ultraligera con tecnología DryMove™.",
     "specs": {
       "material": "92% Polyester, 8% Elastane",
       "technology": "DryMove™",
@@ -81,13 +84,15 @@
     "id": "3",
     "slug": "race-shorts-elite",
     "name": "Race Shorts Elite",
-    "category": "Shorts",
+    "category": "Men's Running",
+    "sport": "running",
+    "subcategory": "shorts",
     "gender": "men",
     "price": 98,
     "badge": "new",
     "rating": 4.4,
     "reviewCount": 39,
-    "collection": "SS25",
+    "collection": "Core collection",
     "inStock": true,
     "colors": [
       { "name": "Terra",        "hex": "#8C4A2A" },
@@ -100,8 +105,8 @@
       { "label": "L",  "available": false },
       { "label": "XL", "available": false }
     ],
-    "images": ["/images/products/race-shorts-1.jpg"],
-    "description": "Shorts de competición con liner integrado y bolsillos laterales. Diseñados para velocidad máxima y comfort en carrera.",
+    "images": ["/images/products/Shorts.png"],
+    "description": "Shorts de competición con liner integrado y bolsillos laterales.",
     "specs": {
       "material": "86% Polyester, 14% Elastane",
       "technology": "AeroWeave™ Lite",
@@ -112,6 +117,279 @@
       "breathability": 92,
       "elasticity": 88,
       "durability": 82
+    }
+  },
+  {
+    "id": "4",
+    "slug": "compression-leggings-pro",
+    "name": "Compression Leggings Pro",
+    "category": "Women's Running",
+    "sport": "running",
+    "subcategory": "leggings",
+    "gender": "women",
+    "price": 115,
+    "badge": "exclusive",
+    "rating": 4.7,
+    "reviewCount": 92,
+    "collection": "Core collection",
+    "inStock": true,
+    "colors": [
+      { "name": "Stryde Black", "hex": "#0A0A0A" },
+      { "name": "Cold Blue",    "hex": "#1A1F3C" },
+      { "name": "Volt",         "hex": "#C8FF00" }
+    ],
+    "sizes": [
+      { "label": "XS", "available": true },
+      { "label": "S",  "available": true },
+      { "label": "M",  "available": true },
+      { "label": "L",  "available": true },
+      { "label": "XL", "available": false }
+    ],
+    "images": ["/images/products/Leggins.png"],
+    "description": "Leggings de compresión de alto rendimiento para running.",
+    "specs": {
+      "material": "78% Polyester, 22% Elastane",
+      "technology": "CompreX™",
+      "stretch": "4-Way Stretch",
+      "moistureWicking": "DryMove™",
+      "waterResistance": "Ninguna",
+      "weight": "165g (talla M)",
+      "breathability": 88,
+      "elasticity": 95,
+      "durability": 90
+    }
+  },
+  {
+    "id": "5",
+    "slug": "women-aero-jacket",
+    "name": "AeroShell Women",
+    "category": "Women's Running",
+    "sport": "running",
+    "subcategory": "jackets",
+    "gender": "women",
+    "price": 165,
+    "originalPrice": 210,
+    "badge": "sale",
+    "rating": 4.6,
+    "reviewCount": 54,
+    "collection": "FW25",
+    "inStock": true,
+    "colors": [
+      { "name": "Arctic White", "hex": "#F5F5F3" },
+      { "name": "Volt",         "hex": "#C8FF00" }
+    ],
+    "sizes": [
+      { "label": "XS", "available": true },
+      { "label": "S",  "available": true },
+      { "label": "M",  "available": true, "lowStock": true },
+      { "label": "L",  "available": false }
+    ],
+    "images": ["/images/products/BJacket.png"],
+    "description": "Chaqueta ligera para running femenino con tecnología DWR.",
+    "specs": {
+      "material": "90% Polyester reciclado, 10% Elastane",
+      "technology": "AeroWeave™",
+      "stretch": "4-Way Stretch",
+      "moistureWicking": "DryMove™",
+      "waterResistance": "DWR Coating",
+      "weight": "128g (talla M)",
+      "breathability": 93,
+      "elasticity": 88,
+      "durability": 83
+    }
+  },
+  {
+    "id": "6",
+    "slug": "runner-x1",
+    "name": "Stryde Runner X1",
+    "category": "Running",
+    "sport": "running",
+    "subcategory": "accessories",
+    "gender": "unisex",
+    "price": 179,
+    "originalPrice": 199,
+    "badge": "sale",
+    "rating": 4.9,
+    "reviewCount": 210,
+    "collection": "Core collection",
+    "inStock": true,
+    "colors": [
+      { "name": "Volt",         "hex": "#C8FF00" },
+      { "name": "Stryde Black", "hex": "#0A0A0A" },
+      { "name": "Arctic White", "hex": "#F5F5F3" }
+    ],
+    "sizes": [
+      { "label": "S",  "available": true },
+      { "label": "M",  "available": true },
+      { "label": "L",  "available": true },
+      { "label": "XL", "available": true }
+    ],
+    "images": ["/images/products/Tennis.png"],
+    "description": "Zapatillas de running con amortiguación reactiva.",
+    "specs": {
+      "material": "Upper: Mesh reciclado",
+      "technology": "ReactFoam™",
+      "stretch": "N/A",
+      "moistureWicking": "N/A",
+      "waterResistance": "Splash Resistant",
+      "weight": "242g (talla M)",
+      "breathability": 90,
+      "elasticity": 60,
+      "durability": 92
+    }
+  },
+  {
+    "id": "7",
+    "slug": "training-jacket-elite",
+    "name": "Training Jacket Elite",
+    "category": "Men's Training",
+    "sport": "training",
+    "subcategory": "jackets",
+    "gender": "men",
+    "price": 145,
+    "badge": "new",
+    "rating": 4.5,
+    "reviewCount": 31,
+    "collection": "Core collection",
+    "inStock": true,
+    "colors": [
+      { "name": "Stryde Black", "hex": "#0A0A0A" },
+      { "name": "Orange",       "hex": "#E85D04" }
+    ],
+    "sizes": [
+      { "label": "S",  "available": true },
+      { "label": "M",  "available": true },
+      { "label": "L",  "available": true },
+      { "label": "XL", "available": true }
+    ],
+    "images": ["/images/products/BJacket.png"],
+    "description": "Chaqueta de entrenamiento con paneles de ventilación estratégicos.",
+    "specs": {
+      "material": "85% Polyester, 15% Elastane",
+      "technology": "VentX™",
+      "stretch": "2-Way Stretch",
+      "moistureWicking": "DryMove™",
+      "waterResistance": "Ninguna",
+      "weight": "158g (talla M)",
+      "breathability": 90,
+      "elasticity": 80,
+      "durability": 88
+    }
+  },
+  {
+    "id": "8",
+    "slug": "gym-shorts-pro",
+    "name": "Gym Shorts Pro",
+    "category": "Men's Training",
+    "sport": "training",
+    "subcategory": "shorts",
+    "gender": "men",
+    "price": 75,
+    "badge": "new",
+    "rating": 4.1,
+    "reviewCount": 19,
+    "collection": "SS25",
+    "inStock": true,
+    "colors": [
+      { "name": "Stryde Black", "hex": "#0A0A0A" },
+      { "name": "Gray",         "hex": "#555555" }
+    ],
+    "sizes": [
+      { "label": "S",  "available": true },
+      { "label": "M",  "available": true },
+      { "label": "L",  "available": true },
+      { "label": "XL", "available": true }
+    ],
+    "images": ["/images/products/Shortsgym.png"],
+    "description": "Shorts de entrenamiento con bolsillos profundos.",
+    "specs": {
+      "material": "88% Polyester, 12% Elastane",
+      "technology": "AeroWeave™ Lite",
+      "stretch": "4-Way Stretch",
+      "moistureWicking": "DryMove™",
+      "waterResistance": "Ninguna",
+      "weight": "118g (talla M)",
+      "breathability": 91,
+      "elasticity": 85,
+      "durability": 84
+    }
+  },
+  {
+    "id": "9",
+    "slug": "power-leggings",
+    "name": "Power Leggings",
+    "category": "Women's Training",
+    "sport": "training",
+    "subcategory": "leggings",
+    "gender": "women",
+    "price": 95,
+    "badge": "new",
+    "rating": 4.6,
+    "reviewCount": 47,
+    "collection": "Core collection",
+    "inStock": true,
+    "colors": [
+      { "name": "Stryde Black", "hex": "#0A0A0A" },
+      { "name": "Red",          "hex": "#DC2626" }
+    ],
+    "sizes": [
+      { "label": "XS", "available": true },
+      { "label": "S",  "available": true },
+      { "label": "M",  "available": true },
+      { "label": "L",  "available": true },
+      { "label": "XL", "available": true }
+    ],
+    "images": ["/images/products/Leggins.png"],
+    "description": "Leggings de entrenamiento con cintura alta.",
+    "specs": {
+      "material": "80% Polyester, 20% Elastane",
+      "technology": "CompreX™",
+      "stretch": "4-Way Stretch",
+      "moistureWicking": "DryMove™",
+      "waterResistance": "Ninguna",
+      "weight": "172g (talla M)",
+      "breathability": 85,
+      "elasticity": 96,
+      "durability": 91
+    }
+  },
+  {
+    "id": "10",
+    "slug": "drymove-sport-tee",
+    "name": "DryMove Sport Tee",
+    "category": "Women's Training",
+    "sport": "training",
+    "subcategory": "tshirts",
+    "gender": "women",
+    "price": 55,
+    "badge": "new",
+    "rating": 4.3,
+    "reviewCount": 28,
+    "collection": "Core collection",
+    "inStock": true,
+    "colors": [
+      { "name": "Arctic White", "hex": "#F5F5F3" },
+      { "name": "Volt",         "hex": "#C8FF00" },
+      { "name": "Stryde Black", "hex": "#0A0A0A" }
+    ],
+    "sizes": [
+      { "label": "XS", "available": true },
+      { "label": "S",  "available": true },
+      { "label": "M",  "available": true },
+      { "label": "L",  "available": true }
+    ],
+    "images": ["/images/products/Ropagym.png"],
+    "description": "Camiseta de entrenamiento con tecnología DryMove™.",
+    "specs": {
+      "material": "94% Polyester, 6% Elastane",
+      "technology": "DryMove™",
+      "stretch": "2-Way Stretch",
+      "moistureWicking": "DryMove™",
+      "waterResistance": "Ninguna",
+      "weight": "88g (talla M)",
+      "breathability": 97,
+      "elasticity": 72,
+      "durability": 78
     }
   }
 ]
