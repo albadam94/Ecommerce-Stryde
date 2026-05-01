@@ -5,12 +5,12 @@ import { useCartStore } from "@/store/cartStore"
 import Image from "next/image"
 
 const NAV_LINKS = [
-  { label: "Men",         href: "/products?gender=men"    },
-  { label: "Women",       href: "/products?gender=women"  },
-  { label: "Running",     href: "/products?cat=running"   },
-  { label: "Training",    href: "/products?cat=training"  },
-  { label: "Collections", href: "/collections"            },
-  { label: "Sale",        href: "/products?badge=sale"    },
+  { label: "Men",         href: "/products?gender=men"     },
+  { label: "Women",       href: "/products?gender=women"   },
+  { label: "Running",     href: "/products?sport=running"  },
+  { label: "Training",    href: "/products?sport=training" },
+  { label: "Collections", href: "/collections"             },
+  { label: "Sale",        href: "/products?badge=sale"     },
 ]
 
 export default function Navbar() {

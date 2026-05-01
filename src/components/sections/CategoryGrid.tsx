@@ -4,11 +4,11 @@ import Image from "next/image"
 import Link from "next/link"
 
 const categories = [
-  { id: 1, title: "RUNNING COLLECTION", tag: "Running", image: "/images/categories/Running.png", href: "/category/running" },
-  { id: 2, title: "TRAINING", tag: "Training", image: "/images/categories/Training.png", href: "/category/training" },
-  { id: 3, title: "OUTDOOR", tag: "Outdoor", image: "/images/categories/Outdoor.png", href: "/category/outdoor" },
-  { id: 4, title: "LIFESTYLE", tag: "Lifestyle", image: "/images/categories/Lifestyle.png", href: "/category/lifestyle" },
-  { id: 5, title: "ACCESSORIES", tag: "Accessories", image: "/images/categories/Accesories.png", href: "/category/accessories" },
+  { id: 1, title: "RUNNING COLLECTION", tag: "Running", image: "/images/categories/Running.png", href: "/products?sport=running" },
+  { id: 2, title: "TRAINING", tag: "Training", image: "/images/categories/Training.png", href: "/products?sport=training" },
+  { id: 3, title: "OUTDOOR", tag: "Outdoor", image: "/images/categories/Outdoor.png", href: "/products?sport=outdoor" },
+  { id: 4, title: "LIFESTYLE", tag: "Lifestyle", image: "/images/categories/Lifestyle.png", href: "/products?sport=lifestyle" },
+  { id: 5, title: "ACCESSORIES", tag: "Accessories", image: "/images/categories/Accesories.png", href: "/products?cat=accessories" },
 ]
 
 export default function CategoryGrid() {
@@ -61,7 +61,7 @@ export default function CategoryGrid() {
   )
 }
 
-function CategoryCard({ category, className = "", isLarge = false }) {
+function CategoryCard({ category, className = "", isLarge = false }: { category: typeof categories[0]; className?: string; isLarge?: boolean }) {
   return (
     <Link
       href={category.href}
