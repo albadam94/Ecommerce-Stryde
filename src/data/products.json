@@ -27,7 +27,7 @@
       { "label": "XL", "available": true  }
     ],
     "images": ["/images/products/BJacket.png"],
-    "description": "Diseñada para atletas de alto rendimiento. AeroWeave™ de 4 vías de elasticidad.",
+    "description": "The Aero Jacket Pro is designed for high-performance athletes who don't compromise between functionality and style. Built with our exclusive 4-way stretch AeroWeave™ fabric, it moves with you without restrictions. Ideal for running, trail, and high-intensity training in any weather.",
     "specs": {
       "material": "88% Polyester reciclado, 12% Elastane",
       "technology": "AeroWeave™",
@@ -67,7 +67,7 @@
       { "label": "XL", "available": true }
     ],
     "images": ["/images/products/Tshirt.png"],
-    "description": "Camiseta técnica ultraligera con tecnología DryMove™.",
+    "description": "Lightweight technical t-shirt with DryMove™ technology.",
     "specs": {
       "material": "92% Polyester, 8% Elastane",
       "technology": "DryMove™",
@@ -106,7 +106,7 @@
       { "label": "XL", "available": false }
     ],
     "images": ["/images/products/Shorts.png"],
-    "description": "Shorts de competición con liner integrado y bolsillos laterales.",
+    "description": "Competition shorts with integrated liner and side pockets.",
     "specs": {
       "material": "86% Polyester, 14% Elastane",
       "technology": "AeroWeave™ Lite",
@@ -146,7 +146,7 @@
       { "label": "XL", "available": false }
     ],
     "images": ["/images/products/Leggins.png"],
-    "description": "Leggings de compresión de alto rendimiento para running.",
+    "description": "High-performance compression leggings for running.",
     "specs": {
       "material": "78% Polyester, 22% Elastane",
       "technology": "CompreX™",
@@ -185,14 +185,14 @@
       { "label": "L",  "available": false }
     ],
     "images": ["/images/products/BJacket.png"],
-    "description": "Chaqueta ligera para running femenino con tecnología DWR.",
+    "description": "Lightweight jacket for women's running with DWR technology.",
     "specs": {
-      "material": "90% Polyester reciclado, 10% Elastane",
+      "material": "90% Recycled Polyester, 10% Elastane",
       "technology": "AeroWeave™",
       "stretch": "4-Way Stretch",
       "moistureWicking": "DryMove™",
       "waterResistance": "DWR Coating",
-      "weight": "128g (talla M)",
+      "weight": "128g (size M)",
       "breathability": 93,
       "elasticity": 88,
       "durability": 83
@@ -225,14 +225,14 @@
       { "label": "XL", "available": true }
     ],
     "images": ["/images/products/Tennis.png"],
-    "description": "Zapatillas de running con amortiguación reactiva.",
+    "description": "Running shoes with responsive cushioning.",
     "specs": {
-      "material": "Upper: Mesh reciclado",
+      "material": "Upper: Recycled Mesh",
       "technology": "ReactFoam™",
       "stretch": "N/A",
       "moistureWicking": "N/A",
       "waterResistance": "Splash Resistant",
-      "weight": "242g (talla M)",
+      "weight": "242g (size M)",
       "breathability": 90,
       "elasticity": 60,
       "durability": 92
@@ -263,14 +263,14 @@
       { "label": "XL", "available": true }
     ],
     "images": ["/images/products/BJacket.png"],
-    "description": "Chaqueta de entrenamiento con paneles de ventilación estratégicos.",
+    "description": "Training jacket with strategic ventilation panels.",
     "specs": {
       "material": "85% Polyester, 15% Elastane",
       "technology": "VentX™",
       "stretch": "2-Way Stretch",
       "moistureWicking": "DryMove™",
-      "waterResistance": "Ninguna",
-      "weight": "158g (talla M)",
+      "waterResistance": "None",
+      "weight": "158g (size M)",
       "breathability": 90,
       "elasticity": 80,
       "durability": 88
@@ -301,14 +301,14 @@
       { "label": "XL", "available": true }
     ],
     "images": ["/images/products/Shortsgym.png"],
-    "description": "Shorts de entrenamiento con bolsillos profundos.",
+    "description": "Training shorts with deep pockets.",
     "specs": {
       "material": "88% Polyester, 12% Elastane",
       "technology": "AeroWeave™ Lite",
       "stretch": "4-Way Stretch",
       "moistureWicking": "DryMove™",
-      "waterResistance": "Ninguna",
-      "weight": "118g (talla M)",
+      "waterResistance": "None",
+      "weight": "118g (size M)",
       "breathability": 91,
       "elasticity": 85,
       "durability": 84
@@ -340,14 +340,14 @@
       { "label": "XL", "available": true }
     ],
     "images": ["/images/products/Leggins.png"],
-    "description": "Leggings de entrenamiento con cintura alta.",
+    "description": "High-performance compression leggings for running.",
     "specs": {
       "material": "80% Polyester, 20% Elastane",
       "technology": "CompreX™",
       "stretch": "4-Way Stretch",
       "moistureWicking": "DryMove™",
-      "waterResistance": "Ninguna",
-      "weight": "172g (talla M)",
+      "waterResistance": "None",
+      "weight": "172g (size M)",
       "breathability": 85,
       "elasticity": 96,
       "durability": 91
@@ -379,14 +379,14 @@
       { "label": "L",  "available": true }
     ],
     "images": ["/images/products/Ropagym.png"],
-    "description": "Camiseta de entrenamiento con tecnología DryMove™.",
+    "description": "Lightweight technical t-shirt with DryMove™ technology.",
     "specs": {
       "material": "94% Polyester, 6% Elastane",
       "technology": "DryMove™",
       "stretch": "2-Way Stretch",
       "moistureWicking": "DryMove™",
-      "waterResistance": "Ninguna",
-      "weight": "88g (talla M)",
+      "waterResistance": "None",
+      "weight": "88g (size M)",
       "breathability": 97,
       "elasticity": 72,
       "durability": 78

@@ -11,52 +11,56 @@ const SIZES       = ["XS", "S", "M", "L", "XL"]
 const COLORS      = ["#F5F5F3", "#C8FF00", "#FF8C00", "#1A1F3C", "#555555", "#00C896", "#FF4B4B", "#FFB800"]
 const COLLECTIONS = ["Core collection", "FW25"]
 
-const SUBCAT_MAP: Record<string, string> = {
-  Jackets: "jackets", "T-shirts": "tshirts", Shorts: "shorts",
-  Leggings: "leggings", Accessories: "accessories",
-}
-
 interface Props { products: Product[] }
 
 export default function ProductsClient({ products }: Props) {
   const searchParams = useSearchParams()
   const genderParam  = searchParams.get("gender")
-  const sportParam   = searchParams.get("sport") || searchParams.get("cat")
+  const catParam     = searchParams.get("cat")
   const badgeParam   = searchParams.get("badge")
 
   const [gender,       setGender]       = useState(() =>
-    genderParam ? genderParam.charAt(0).toUpperCase() + genderParam.slice(1) : "All"
+    genderParam ? genderParam.charAt(0).toUpperCase() + genderParam.slice(1) : "Men"
   )
   const [activeSize,   setActiveSize]   = useState("M")
   const [activeColor,  setActiveColor]  = useState<string | null>(null)
-  const [checkedCats,  setCheckedCats]  = useState<string[]>([])
+  const [checkedCats,  setCheckedCats]  = useState<string[]>(["Jackets"])
   const [checkedColls, setCheckedColls] = useState<string[]>(["Core collection"])
   const [stockOnly,    setStockOnly]    = useState(true)
   const [preSale,      setPreSale]      = useState(false)
   const [priceMax,     setPriceMax]     = useState(450)
   const [sortBy,       setSortBy]       = useState("Relevance")
-  const [viewMode,     setViewMode]     = useState<"grid4" | "grid2" | "list">("grid4")
+  const [viewMode,     setViewMode]     = useState<"grid3" | "grid2" | "list">("grid3")
 
-  const filteredProducts = products.filter((p) => {
-    // Gender
+ const filteredProducts = products
+  .filter((p) => {
     if (gender !== "All") {
       const g = gender.toLowerCase()
       if (p.gender !== g && p.gender !== "unisex") return false
     }
-    // Sport (from URL param)
-    if (sportParam && p.sport !== sportParam.toLowerCase()) return false
-    // Badge
     if (badgeParam && p.badge !== badgeParam) return false
-    // Subcategory checkboxes
-    if (checkedCats.length > 0 && !checkedCats.map(c => SUBCAT_MAP[c]).includes(p.subcategory)) return false
-    // Price
     if (p.price > priceMax) return false
-    // Stock
     if (stockOnly && !p.inStock) return false
     return true
   })
+  .sort((a, b) => {
+    switch (sortBy) {
+      case "Price: Low to High":
+        return a.price - b.price
+      case "Price: High to Low":
+        return b.price - a.price
+      case "Best Rated":
+        return b.rating - a.rating
+      case "Newest":
+        // Ordena por id descendente asumiendo que ids más altos son más nuevos
+        return Number(b.id) - Number(a.id)
+      case "Relevance":
+      default:
+        return 0
+    }
+  })
 
-  const toggleCat  = (c: string) => setCheckedCats(p  => p.includes(c) ? p.filter(x => x !== c) : [...p, c])
+  const toggleCat  = (c: string) => setCheckedCats(p => p.includes(c) ? p.filter(x => x !== c) : [...p, c])
   const toggleColl = (c: string) => setCheckedColls(p => p.includes(c) ? p.filter(x => x !== c) : [...p, c])
   const clearAll   = () => {
     setCheckedCats([])
@@ -68,46 +72,49 @@ export default function ProductsClient({ products }: Props) {
     setPreSale(false)
   }
 
-  const sportLabel = sportParam
-    ? sportParam.charAt(0).toUpperCase() + sportParam.slice(1)
-    : "Collection"
+  const sportLabel = catParam
+    ? catParam.charAt(0).toUpperCase() + catParam.slice(1)
+    : "Running"
 
   const gridClass = {
-    grid4: "grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+    grid3: "grid-cols-3",
     grid2: "grid-cols-2",
     list:  "grid-cols-1",
   }[viewMode]
 
   return (
-    <div className="bg-black min-h-screen text-white pt-12 mt-8">
+    /* navbar 64px + ticker 36px + extra margen = 148px */
+    <div className="bg-black min-h-screen text-white" style={{ paddingTop: "148px" }}>
 
       {/* BREADCRUMB */}
-      <div className="max-w-360 flex-10 px-20">
+      <div className="max-w-[1440px] mx-auto px-20">
         <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[1.5px]">
-          <Link href="/" className="text-white/40 hover:text-white transition-colors">Home</Link>
-          {gender !== "All" && (
-            <>
-              <span className="text-white/20">›</span>
-              <span className="text-white/40">{gender}</span>
-            </>
-          )}
-          <span className="text-white/20">›</span>
-          <span className="text-white/70">{sportLabel}</span>
+          <Link href="/" className="text-white/40 hover:text-white transition-colors">
+            Home
+          </Link>
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none">
+            <path d="M1 1L5 5L1 9" stroke="rgba(255,255,255,0.2)" strokeWidth="1.2" strokeLinecap="round"/>
+          </svg>
+          <span className="text-white/40">{gender}</span>
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none">
+            <path d="M1 1L5 5L1 9" stroke="rgba(255,255,255,0.2)" strokeWidth="1.2" strokeLinecap="round"/>
+          </svg>
+          <span className="text-white/80">{sportLabel}</span>
         </div>
       </div>
 
       {/* PAGE HEADER */}
-      <div className="max-w-360 mx-auto px-20 pt-8 pb-6 mt-8">
+      <div className="max-w-[1440px] mx-auto px-20 pt-8 pb-6">
         <div className="flex items-end justify-between">
           <h1 className="font-display font-extrabold text-[56px] uppercase leading-[0.9] tracking-[-2px]">
-            {gender !== "All" && <>{gender}&apos;s <br /></>}
+            {gender}&apos;s <br />
             <span className="text-volt">{sportLabel}</span>
           </h1>
           <div className="text-right">
             <p className="text-white font-medium text-[13px] tracking-[0.5px]">
               {filteredProducts.length} products
             </p>
-            <p className="text-white/30 text-[12px] font-light mt-1 max-w-[280px] text-right">
+            <p className="text-white/30 text-[12px] font-light mt-1 max-w-[300px] text-right leading-relaxed">
               High-performance technique for the athlete who never stops.
             </p>
           </div>
@@ -115,7 +122,7 @@ export default function ProductsClient({ products }: Props) {
       </div>
 
       {/* GENDER TABS */}
-      <div className="max-w-360 mx-auto px-20">
+      <div className="max-w-[1440px] mx-auto px-20">
         <div className="flex items-center gap-8 border-b border-white/10">
           {["Men", "Women", "Unisex", "All"].map((g) => (
             <button
@@ -134,12 +141,17 @@ export default function ProductsClient({ products }: Props) {
       </div>
 
       {/* MAIN LAYOUT */}
-      <div className="max-w-[1440px] mx-auto px-20 py-8 flex gap-8 items-start">
+      <div className="max-w-[1440px] mx-auto px-20 py-10 flex gap-10 items-start">
 
         {/* SIDEBAR */}
-        <aside className="w-55 shrink-0 flex flex-col gap-0">
-          <div className="flex items-center justify-between pb-4 border-b border-white/10">
-            <span className="text-white font-medium text-[13px] uppercase tracking-[1px]">Filters</span>
+        <aside
+          className="w-[240px] shrink-0 flex flex-col"
+          style={{ borderRight: "0.5px solid rgba(255,255,255,0.08)" }}
+        >
+          <div className="flex items-center justify-between pb-5 pr-8 border-b border-white/10">
+            <span className="text-white font-medium text-[13px] uppercase tracking-[1px]">
+              Filters
+            </span>
             <button
               onClick={clearAll}
               className="text-volt text-[11px] font-medium uppercase tracking-[1px] hover:opacity-70 transition-opacity"
@@ -164,11 +176,12 @@ export default function ProductsClient({ products }: Props) {
                 <button
                   key={s}
                   onClick={() => setActiveSize(s)}
-                  className={`w-10 h-10 text-[12px] font-medium border transition-all ${
+                  className={`text-[12px] font-medium border transition-all ${
                     activeSize === s
                       ? "border-volt bg-volt/10 text-volt"
                       : "border-white/20 text-white/50 hover:border-white/50"
                   }`}
+                  style={{ width: 42, height: 39 }}
                 >
                   {s}
                 </button>
@@ -194,20 +207,53 @@ export default function ProductsClient({ products }: Props) {
           </FilterGroup>
 
           <FilterGroup title="Price">
-            <div className="pt-1 pb-2">
-              <input 
-                
-                type="range"
-                min={0}
-                max={450}
-                step={5}
+            <div className="pt-1 pb-2 pr-8">
+              <style>{`
+                input[type=range].price-slider {
+                  -webkit-appearance: none;
+                  appearance: none;
+                  width: 100%;
+                  height: 3px;
+                  border-radius: 99px;
+                  background: linear-gradient(
+                    to right,
+                    #C8FF00 0%,
+                    #C8FF00 ${(priceMax / 450) * 100}%,
+                    rgba(255,255,255,0.1) ${(priceMax / 450) * 100}%,
+                    rgba(255,255,255,0.1) 100%
+                  );
+                  outline: none;
+                  cursor: pointer;
+                }
+                input[type=range].price-slider::-webkit-slider-thumb {
+                  -webkit-appearance: none;
+                  appearance: none;
+                  width: 16px;
+                  height: 16px;
+                  border-radius: 50%;
+                  background: #ffffff;
+                  cursor: pointer;
+                  border: 2px solid #C8FF00;
+                  box-shadow: 0 0 0 2px rgba(200,255,0,0.2);
+                }
+                input[type=range].price-slider::-moz-range-thumb {
+                  width: 16px;
+                  height: 16px;
+                  border-radius: 50%;
+                  background: #ffffff;
+                  cursor: pointer;
+                  border: 2px solid #C8FF00;
+                }
+              `}</style>
+              <input
+                type="range" min={0} max={450} step={5}
                 value={priceMax}
                 onChange={(e) => setPriceMax(Number(e.target.value))}
-                className=" w-full cursor-pointer accent-volt/80"
+                className="price-slider w-full"
               />
-              <div className="flex justify-between mt-2 text-[11px] font-medium">
+              <div className="flex justify-between mt-2 text-[11px]">
                 <span className="text-white/40">$0</span>
-                <span className="text-white/80 font-medium">${priceMax}</span>
+                <span className="text-volt font-medium">${priceMax}</span>
               </div>
             </div>
           </FilterGroup>
@@ -223,38 +269,33 @@ export default function ProductsClient({ products }: Props) {
           </FilterGroup>
 
           <FilterGroup title="Availability">
-            <div className="flex flex-col gap-4">
-              <ToggleRow
-                label="In stock only"
-                value={stockOnly}
-                onChange={() => setStockOnly(p => !p)}
-              />
-              <ToggleRow
-                label="Include pre-sale"
-                value={preSale}
-                onChange={() => setPreSale(p => !p)}
-              />
+            <div className="flex flex-col gap-5">
+              <ToggleRow label="In stock only"    value={stockOnly} onChange={() => setStockOnly(p => !p)} />
+              <ToggleRow label="Include pre-sale" value={preSale}   onChange={() => setPreSale(p => !p)} />
             </div>
           </FilterGroup>
         </aside>
 
         {/* PRODUCTS */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 pl-6">
 
           {/* Toolbar */}
-          <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
-            <span className="text-white/40 text-[12px] font-light tracking-[0.5px]">
-              Showing <span className="text-white">{filteredProducts.length}</span> of{" "}
-              <span className="text-white">{products.length}</span> products
+          <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
+            <span className="text-white/40 text-[12px] font-light">
+              Showing{" "}
+              <span className="text-white">{filteredProducts.length}</span>
+              {" "}of{" "}
+              <span className="text-white">{products.length}</span>
+              {" "}products
             </span>
             <div className="flex items-center gap-4">
               <div className="relative">
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="appearance-none bg-black border border-white/20 text-white text-[12px] font-medium px-4 pr-8 h-9 cursor-pointer outline-none hover:border-white/40 transition-colors"
+                  className="appearance-none bg-black border border-white/20 text-white text-[12px] px-4 pr-8 h-9 cursor-pointer outline-none hover:border-white/40 transition-colors"
                 >
-                  {["Relevance", "Newest", "Price: Low to High", "Price: High to Low", "Best Rated"].map(o => (
+                  {["Relevance","Newest","Price: Low to High","Price: High to Low","Best Rated"].map(o => (
                     <option key={o} value={o} className="bg-black">{o}</option>
                   ))}
                 </select>
@@ -262,67 +303,95 @@ export default function ProductsClient({ products }: Props) {
                   <path d="M2 4L6 8L10 4" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
                 </svg>
               </div>
+
+              {/* VIEW MODE BUTTONS */}
               <div className="flex gap-1">
                 {([
-                  { mode: "grid4", icon: "M1 1h4v4H1zM7 1h4v4H7zM1 7h4v4H1zM7 7h4v4H7z" },
-                  { mode: "grid2", icon: "M1 1h3v10H1zM5 1h3v10H5zM9 1h2v10H9z" },
-                  { mode: "list",  icon: "M1 3h10M1 6h10M1 9h10" },
-                ] as const).map(({ mode, icon }) => (
+                  {
+                    mode: "grid3" as const,
+                    icon: (
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <rect x="1" y="1" width="4" height="6" stroke="currentColor" strokeWidth="1.2"/>
+                        <rect x="6" y="1" width="4" height="6" stroke="currentColor" strokeWidth="1.2"/>
+                        <rect x="11" y="1" width="4" height="6" stroke="currentColor" strokeWidth="1.2"/>
+                        <rect x="1" y="9" width="4" height="6" stroke="currentColor" strokeWidth="1.2"/>
+                        <rect x="6" y="9" width="4" height="6" stroke="currentColor" strokeWidth="1.2"/>
+                        <rect x="11" y="9" width="4" height="6" stroke="currentColor" strokeWidth="1.2"/>
+                      </svg>
+                    ),
+                  },
+                
+                  {
+                    mode: "list" as const,
+                    icon: (
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M1 4H15M1 8H15M1 12H15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                      </svg>
+                    ),
+                  },
+                ]).map(({ mode, icon }) => (
                   <button
                     key={mode}
                     onClick={() => setViewMode(mode)}
                     className={`w-9 h-9 flex items-center justify-center border transition-colors ${
                       viewMode === mode
-                        ? "border-white/40 text-white"
+                        ? "border-white/50 text-white bg-white/5"
                         : "border-white/10 text-white/30 hover:border-white/30 hover:text-white/60"
                     }`}
                   >
-                    <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
-                      <path d={icon} stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-                    </svg>
+                    {icon}
                   </button>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Grid / Empty state */}
+          {/* Grid / Empty */}
           {filteredProducts.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-32 gap-6">
-              <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center">
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <path d="M4 7h20M9 7V5a2 2 0 012-2h6a2 2 0 012 2v2M12 12v7M16 12v7M5 7l1.5 16a2 2 0 002 1.8h11a2 2 0 002-1.8L23 7" stroke="#555" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div className="text-center">
-                <p className="font-display font-bold text-[20px] uppercase text-white/20 mb-2">
-                  No products found
-                </p>
-                <p className="text-white/30 text-[13px]">Try adjusting your filters</p>
-              </div>
+            <div className="flex flex-col items-center justify-center py-32 gap-4">
+              <p className="font-display font-bold text-[20px] uppercase text-white/20">
+                No products found
+              </p>
+              <p className="text-white/30 text-[13px]">Try adjusting your filters</p>
               <button
                 onClick={clearAll}
-                className="px-6 py-2.5 bg-volt text-black text-[11px] font-bold uppercase tracking-[2px] hover:opacity-90 transition-opacity"
+                className="mt-2 px-6 py-2.5 bg-volt text-black text-[11px] font-bold uppercase tracking-[2px]"
               >
                 Clear filters
               </button>
             </div>
           ) : (
-            <div className={`grid gap-x-4 gap-y-8 ${gridClass}`}>
+            <div className={`grid gap-x-6 gap-y-10 ${gridClass}`}>
               {filteredProducts.map((product) => (
-                <Link key={product.id} href={`/products/${product.slug}`} className="group block">
-                  <div className="relative aspect-3/4 bg-black overflow-hidden">
+                <Link
+                  key={product.id}
+                  href={`/products/${product.slug}`}
+                  className={`group ${viewMode === "list" ? "flex gap-0" : "block"}`}
+                >
+                  {/* IMAGEN */}
+                  <div
+                    className="relative overflow-hidden bg-[#1A1A1A] shrink-0"
+                    style={{
+                      aspectRatio: viewMode === "list" ? "1/1" : "3/4",
+                      width: viewMode === "list" ? "180px" : "100%",
+                    }}
+                  >
                     <Image
                       src={product.images[0]}
                       alt={product.name}
                       fill
-                      sizes="25vw"
+                      sizes={
+                        viewMode === "grid3" ? "30vw" :
+                        viewMode === "grid2" ? "45vw" :
+                        "180px"
+                      }
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
 
+                    {/* Badge */}
                     {product.badge && (
-                      <div className="absolute top-3 left-3 ">
-                        <span className={`px-2.5 py-1 text-[9px] font-bold uppercase tracking-[2px] ${
+                      <div className="absolute top-3 left-3 z-10">
+                        <span className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-[2px] ${
                           product.badge === "sale" ? "bg-volt text-black" : "bg-black text-white"
                         }`}>
                           {product.badge.toUpperCase()}
@@ -330,41 +399,155 @@ export default function ProductsClient({ products }: Props) {
                       </div>
                     )}
 
+                    {/* Wishlist */}
                     <button
-                      className="absolute top-3 right-3 z-10 w-8 h-8 bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/20"
+                      className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center"
                       onClick={(e) => e.preventDefault()}
                     >
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M7 12S1 8.5 1 5C1 3.3 2.3 2 4 2C5.1 2 6 2.6 7 3.5C8 2.6 8.9 2 10 2C11.7 2 13 3.3 13 5C13 8.5 7 12 7 12Z" stroke="white" strokeWidth="1.2" strokeLinejoin="round"/>
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path
+                          d="M10 17.5S2 12.5 2 7C2 4.8 3.8 3 6 3C7.5 3 8.8 3.8 10 5C11.2 3.8 12.5 3 14 3C16.2 3 18 4.8 18 7C18 12.5 10 17.5 10 17.5Z"
+                          fill="#1A1F3C"
+                          stroke="#1A1F3C"
+                          strokeWidth="1.2"
+                          strokeLinejoin="round"
+                        />
                       </svg>
                     </button>
 
-                    <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
-                      <div className="w-full h-11 bg-volt flex items-center justify-center font-semibold text-[11px] uppercase tracking-[2px] text-black">
-                        View product
+                    {/* View product — solo en hover, oculto en lista */}
+                    {viewMode !== "list" && (
+                      <div
+                        className="absolute inset-x-0 bottom-0 z-10 pointer-events-none"
+                        style={{
+                          transform: "translateY(100%)",
+                          transition: "transform 0.3s ease",
+                        }}
+                        ref={(el) => {
+                          if (!el) return
+                          const parent = el.closest(".group")
+                          if (!parent) return
+                          const show = () => (el.style.transform = "translateY(0%)")
+                          const hide = () => (el.style.transform = "translateY(100%)")
+                          parent.addEventListener("mouseenter", show)
+                          parent.addEventListener("mouseleave", hide)
+                        }}
+                      >
+                        <div className="w-full h-11 bg-volt flex items-center justify-center font-body font-semibold text-[12px] uppercase tracking-[2px] text-black pointer-events-auto">
+                          View product
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
 
-                  <div className="flex items-start justify-between gap-2">
+                  {/* INFO */}
+                  <div
+                    style={{
+                      backgroundColor: "#F5F5F3",
+                      padding: viewMode === "list" ? "16px 24px" : "10px 20px",
+                      minHeight: "90px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      flex: viewMode === "list" ? 1 : "unset",
+                    }}
+                  >
                     <div>
-                      <p className="text-white/30 text-[10px] uppercase tracking-[2px] mb-1">{product.category}</p>
-                      <h3 className="font-display font-bold text-[14px] uppercase text-white leading-tight mb-1.5">{product.name}</h3>
-                      <div className="flex items-center gap-2">
-                        <span className="font-display font-bold text-[15px] text-white">${product.price}</span>
+                      <p style={{
+                        color: "rgba(0,0,0,0.4)",
+                        fontSize: "10px",
+                        letterSpacing: "2px",
+                        textTransform: "uppercase",
+                        marginBottom: "4px",
+                      }}>
+                        {product.category}
+                      </p>
+                      <h3 style={{
+                        fontFamily: "var(--font-syne)",
+                        fontWeight: 700,
+                        fontSize: viewMode === "list" ? "18px" : "14px",
+                        textTransform: "uppercase",
+                        color: "#0A0A0A",
+                        lineHeight: 1.2,
+                        marginBottom: viewMode === "list" ? "8px" : "0",
+                      }}>
+                        {product.name}
+                      </h3>
+                      {/* Descripción solo en lista */}
+                      {viewMode === "list" && (
+                        <p style={{
+                          fontSize: "13px",
+                          color: "rgba(0,0,0,0.5)",
+                          fontWeight: 300,
+                          lineHeight: 1.6,
+                          maxWidth: "480px",
+                        }}>
+                          {product.description}
+                        </p>
+                      )}
+                    </div>
+
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      marginTop: "8px",
+                    }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <span style={{
+                          fontFamily: "var(--font-syne)",
+                          fontWeight: 700,
+                          fontSize: "15px",
+                          color: "#0A0A0A",
+                        }}>
+                          ${product.price}
+                        </span>
                         {product.originalPrice && (
-                          <span className="text-white/30 text-[12px] line-through">${product.originalPrice}</span>
+                          <span style={{
+                            fontSize: "12px",
+                            color: "rgba(0,0,0,0.3)",
+                            textDecoration: "line-through",
+                          }}>
+                            ${product.originalPrice}
+                          </span>
                         )}
                       </div>
-                    </div>
-                    <div className="flex gap-1.5 mt-1 shrink-0">
-                      {product.colors.map((color, i) => (
-                        <span
-                          key={i}
-                          className="w-3 h-3 rounded-full border border-white/20"
-                          style={{ backgroundColor: color.hex }}
-                        />
-                      ))}
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        {/* Color dots */}
+                        <div style={{ display: "flex", gap: "6px" }}>
+                          {product.colors.slice(0, 4).map((color, i) => (
+                            <span
+                              key={i}
+                              style={{
+                                width: 12,
+                                height: 12,
+                                borderRadius: "50%",
+                                backgroundColor: color.hex,
+                                border: "1px solid rgba(0,0,0,0.1)",
+                                display: "inline-block",
+                              }}
+                            />
+                          ))}
+                        </div>
+                        {/* Botón ver en lista */}
+                        {viewMode === "list" && (
+                          <span style={{
+                            fontSize: "11px",
+                            fontWeight: 600,
+                            letterSpacing: "2px",
+                            textTransform: "uppercase",
+                            color: "#0A0A0A",
+                            padding: "8px 20px",
+                            backgroundColor: "#C8FF00",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "6px",
+                            marginLeft: "12px",
+                          }}>
+                            View product
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -377,25 +560,30 @@ export default function ProductsClient({ products }: Props) {
   )
 }
 
-/* ── Sub-components ─────────────────────────────────────────────────────── */
+/* ── SUB-COMPONENTES ── */
 
 function FilterGroup({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(true)
   return (
-    <div className="py-5 border-b border-white/10">
+    <div className="py-6 border-b border-white/10 pr-8">
       <button
         onClick={() => setOpen(p => !p)}
-        className="flex items-center justify-between w-full mb-0"
+        className="flex items-center justify-between w-full"
       >
-        <span className="text-white font-medium text-[13px] uppercase tracking-[1px]">{title}</span>
+        <span className="text-white font-medium text-[13px] uppercase tracking-[1px]">
+          {title}
+        </span>
         <svg
           width="12" height="12" viewBox="0 0 12 12" fill="none"
-          style={{ transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+          style={{
+            transition: "transform 0.2s",
+            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+          }}
         >
           <path d="M2 4L6 8L10 4" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
         </svg>
       </button>
-      {open && <div className="mt-4 flex flex-col gap-2">{children}</div>}
+      {open && <div className="mt-5 flex flex-col gap-4">{children}</div>}
     </div>
   )
 }
@@ -405,17 +593,17 @@ function FilterCheckbox({ label, count, checked, onChange }: {
 }) {
   return (
     <div
-      className="flex items-center justify-between cursor-pointer group"
+      className="flex items-center justify-between cursor-pointer group py-1"
       onClick={onChange}
     >
       <div className="flex items-center gap-3">
         <div
-          className="flex items-center justify-center shrink-0 transition-colors"
+          className="flex items-center justify-center shrink-0 transition-all"
           style={{
             width: 16, height: 16,
-            border: checked ? "none" : "1.5px solid rgba(255,255,255,0.2)",
+            border: "1.5px solid #C8FF00",
             backgroundColor: checked ? "#C8FF00" : "transparent",
-            borderRadius: 3,
+            borderRadius: 2,
           }}
         >
           {checked && (
@@ -430,7 +618,9 @@ function FilterCheckbox({ label, count, checked, onChange }: {
           {label}
         </span>
       </div>
-      {count !== undefined && <span className="text-white/20 text-[11px]">{count}</span>}
+      {count !== undefined && (
+        <span className="text-white/20 text-[11px]">{count}</span>
+      )}
     </div>
   )
 }
@@ -443,11 +633,9 @@ function ToggleRow({ label, value, onChange }: {
       <span className="text-white/50 text-[12px] font-light">{label}</span>
       <button
         onClick={onChange}
-        aria-pressed={value}
         style={{
           position: "relative",
-          width: 38,
-          height: 22,
+          width: 38, height: 22,
           borderRadius: 11,
           border: "none",
           cursor: "pointer",
@@ -461,8 +649,7 @@ function ToggleRow({ label, value, onChange }: {
             position: "absolute",
             top: 3,
             left: value ? 19 : 3,
-            width: 16,
-            height: 16,
+            width: 16, height: 16,
             borderRadius: "50%",
             backgroundColor: value ? "#0A0A0A" : "#8C8C8C",
             transition: "left 0.2s, background-color 0.2s",
